@@ -113,7 +113,7 @@ int main(){
     printf("\nMatriz B:\n");
     imprimir_matriz(vetorB);
 
-    if (eh_inversa(vetorA, vetorB)) {
+    if (verificar_inversa(vetorA, vetorB)) {
         printf("B eh inversa de A\n");
     } else {
         printf("B nao eh inversa de A\n");
