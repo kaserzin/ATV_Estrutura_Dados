@@ -1,14 +1,27 @@
 #ifndef PILHADINAMICA_H
 #define PILHADINAMICA_H
 
-struct No {
+typedef struct No {
     int valor;
-    struct No *proximo;
-};
+    struct No *prox;
+} No;
 
-void adicionarElementoDinamica(int valor);
-void removerElementoDinamica();
-void mostrarPilhaDinamica();
-void limparPilhaDinamica();
+typedef struct {
+    No *topo;
+} PilhaDinamica;
+
+void inicializarDinamica(PilhaDinamica *p);
+
+int isEmptyDinamica(PilhaDinamica *p);
+
+void pushDinamica(PilhaDinamica *p, int valor);
+
+void popDinamica(PilhaDinamica *p);
+
+int topDinamica(PilhaDinamica *p);
+
+void imprimirDinamica(PilhaDinamica *p);
+
+void liberarDinamica(PilhaDinamica *p);
 
 #endif

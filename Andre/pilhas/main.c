@@ -1,32 +1,45 @@
 #include <stdio.h>
-#include <conio.h>
+
 #include "pilhaEstatica.h"
 #include "pilhaDinamica.h"
 
 int main() {
-    // estatica
 
-    adicionarElementoEstatica(10);
-    adicionarElementoEstatica(20);
-    adicionarElementoEstatica(30);
+    // PILHA ESTATICA
 
-    mostrarPilhaEstatica();
-    removerElementoEstatica();
-    mostrarPilhaEstatica();
-    limparPilhaEstatica();
-    mostrarPilhaEstatica();
-    //dinamica
+    PilhaEstatica pe;
 
-    adicionarElementoDinamica(100);
-    adicionarElementoDinamica(200);
-    adicionarElementoDinamica(300);
+    inicializar(&pe);
 
-    mostrarPilhaDinamica();
-    removerElementoDinamica();
-    mostrarPilhaDinamica();
-    limparPilhaDinamica();
-    mostrarPilhaDinamica();
+    push(&pe, 10);
+    push(&pe, 20);
+    push(&pe, 30);
 
-    getch();
+    imprimir(&pe);
+
+    pop(&pe);
+
+    imprimir(&pe);
+
+    printf("\nTopo: %d\n", top(&pe));
+
+    // PILHA DINAMICA
+
+    PilhaDinamica pd;
+
+    inicializarDinamica(&pd);
+
+    pushDinamica(&pd, 100);
+    pushDinamica(&pd, 200);
+    pushDinamica(&pd, 300);
+
+    imprimirDinamica(&pd);
+    popDinamica(&pd);
+    imprimirDinamica(&pd);
+
+    printf("\nTopo: %d\n", topDinamica(&pd));
+    liberarDinamica(&pd);
+
+    getchar();
     return 0;
 }

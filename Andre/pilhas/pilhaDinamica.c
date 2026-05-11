@@ -2,65 +2,76 @@
 #include <stdlib.h>
 #include "pilhaDinamica.h"
 
-// TopoDinamico da pilha
-struct No *topoDinamico = NULL;
-
-// Adicionar elemento
-void adicionarElementoDinamica(int valor) {
-
-    struct No *novo = malloc(sizeof(struct No));
-
-    novo->valor = valor;
-    novo->proximo = topoDinamico;
-
-    topoDinamico = novo;
+void inicializarDinamica(PilhaDinamica *p) {
+    p->topo = NULL;
 }
 
-// Remover elemento
-void removerElementoDinamica() {
+int isEmptyDinamica(PilhaDinamica *p) {
+    return p->topo == NULL;
+}
 
-    if (topoDinamico == NULL) {
-        printf("Pilha dinamica vazia\n");
+void pushDinamica(PilhaDinamica *p, int valor) {
+
+    No *novo = (No *) malloc(sizeof(No));
+
+    novo->valor = valor;
+    novo->prox = p->topo;
+
+    p->topo = novo;
+}
+
+void popDinamica(PilhaDinamica *p) {
+
+    if (isEmptyDinamica(p)) {
+        printf("Pilha vazia!\n");
         return;
     }
 
-    struct No *temp = topoDinamico;
+    No *temp = p->topo;
 
-    printf("Removido da pilha dinamica: %d\n", topoDinamico->valor);
+    printf("Removido: %d\n", temp->valor);
 
-    topoDinamico = topoDinamico->proximo;
+    p->topo = temp->prox;
 
     free(temp);
 }
 
-// Mostrar pilha
-void mostrarPilhaDinamica() {
+int topDinamica(PilhaDinamica *p) {
 
-    struct No *atual = topoDinamico;
+    if (isEmptyDinamica(p)) {
+        return -1;
+    }
 
-    if (atual == NULL) {
-        printf("Pilha dinamica vazia\n");
+    return p->topo->valor;
+}
+
+void imprimirDinamica(PilhaDinamica *p) {
+
+    if (isEmptyDinamica(p)) {
+        printf("Pilha vazia!\n");
         return;
     }
 
+    No *aux = p->topo;
+
     printf("\nPilha Dinamica:\n");
 
-    while (atual != NULL) {
-        printf("%d\n", atual->valor);
-        atual = atual->proximo;
+    while (aux != NULL) {
+        printf("%d\n", aux->valor);
+        aux = aux->prox;
     }
 }
 
-// Limpar pilha
-void limparPilhaDinamica() {
+void liberarDinamica(PilhaDinamica *p) {
 
-    struct No *temp;
+    No *temp;
 
-    while (topoDinamico != NULL) {
-        temp = topoDinamico;
-        topoDinamico = topoDinamico->proximo;
+    while (p->topo != NULL) {
+
+        temp = p->topo;
+
+        p->topo = p->topo->prox;
+
         free(temp);
     }
-
-    printf("Pilha dinamica limpa\n");
 }

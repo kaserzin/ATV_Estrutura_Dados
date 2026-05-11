@@ -1,53 +1,60 @@
 #include <stdio.h>
 #include "pilhaEstatica.h"
 
-int pilha[TAM];
-int topoEstatico = -1;
+void inicializar(PilhaEstatica *p) {
+    p->topo = -1;
+}
 
-// Adicionar elemento
-void adicionarElementoEstatica(int valor) {
+int isEmpty(PilhaEstatica *p) {
+    return p->topo == -1;
+}
 
-    if (topoEstatico == TAM - 1) {
-        printf("Pilha estatica cheia \n");
+int isFull(PilhaEstatica *p) {
+    return p->topo == TAMMAX - 1;
+}
+
+void push(PilhaEstatica *p, int valor) {
+
+    if (isFull(p)) {
+        printf("Pilha cheia!\n");
         return;
     }
 
-    topoEstatico++;
-    pilha[topoEstatico] = valor;
+    p->topo++;
+    p->dados[p->topo] = valor;
 }
 
-// Remover elemento
-void removerElementoEstatica() {
+void pop(PilhaEstatica *p) {
 
-    if (topoEstatico == -1) {
-        printf("Pilha estatica vazia \n");
+    if (isEmpty(p)) {
+        printf("Pilha vazia!\n");
         return;
     }
 
-    printf("Removido da pilha estatica: %d\n", pilha[topoEstatico]);
+    printf("Removido: %d\n", p->dados[p->topo]);
 
-    topoEstatico--;
+    p->topo--;
 }
 
-// Mostrar pilha
-void mostrarPilhaEstatica() {
+int top(PilhaEstatica *p) {
 
-    if (topoEstatico == -1) {
-        printf("Pilha estatica vazia \n");
+    if (isEmpty(p)) {
+        return -1;
+    }
+
+    return p->dados[p->topo];
+}
+
+void imprimir(PilhaEstatica *p) {
+
+    if (isEmpty(p)) {
+        printf("Pilha vazia!\n");
         return;
     }
 
     printf("\nPilha Estatica:\n");
 
-    for (int i = topoEstatico; i >= 0; i--) {
-        printf("%d\n", pilha[i]);
+    for (int i = p->topo; i >= 0; i--) {
+        printf("%d\n", p->dados[i]);
     }
-}
-
-// Limpar pilha
-void limparPilhaEstatica() {
-
-    topoEstatico = -1;
-
-    printf("Pilha estatica limpa \n");
 }
